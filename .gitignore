@@ -22,9 +22,8 @@ public/app/wp-cache-config.php
 # Ignore the assetmini files
 public/app/themes/default/assets/min.php
 public/app/themes/default/assets/.htaccess
-public/app/themes/default/assets/cache/
-*.hash
-*.min.*
+public/app/themes/default/assets/cache/*
+!public/app/themes/default/assets/cache/.gitkeep
 
 # Ignore Enviroment Variables, except for the example
 .env
