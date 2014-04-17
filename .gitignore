@@ -1,9 +1,10 @@
 # Ignore all of the standard Wordpress Install
 public/wp/
 
-# Ignore all of the app, except for white listed entries
-public/app/plugins/*
-public/app/mu-plugins/*
+# Ignore all of the app
+public/app/plugins/
+public/app/mu-plugins/
+public/app/uploads/
 public/app/upgrade/
 public/app/blogs.dir/
 public/app/backup-db/
@@ -11,8 +12,9 @@ public/app/cache/
 public/app/backups/
 public/app/advanced-cache.php
 public/app/wp-cache-config.php
-public/app/uploads/*
 
+# Except for white listed entries
+# If you need to version control a custom plugin, or something add it here.
 !public/app/plugins/.gitkeep
 !public/app/mu-plugins/.gitkeep
 !public/app/uploads/.htaccess
