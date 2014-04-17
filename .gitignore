@@ -1,17 +1,26 @@
 # Ignore all of the standard Wordpress Install
-public/wp
+public/wp/
 
 # Ignore all of the app, except for white listed entries
-public/app
+public/app/plugins/*
+public/app/mu-plugins/*
+public/app/upgrade/
+public/app/blogs.dir/
+public/app/backup-db/
+public/app/cache/
+public/app/backups/
+public/app/advanced-cache.php
+public/app/wp-cache-config.php
+public/app/uploads/*
+
 !public/app/plugins/.gitkeep
 !public/app/mu-plugins/.gitkeep
 !public/app/uploads/.htaccess
-!public/app/themes/default/*
 
 # Ignore the assetmini files
 public/app/themes/default/assets/min.php
 public/app/themes/default/assets/.htaccess
-public/app/themes/default/assets/cache
+public/app/themes/default/assets/cache/
 *.hash
 *.min.*
 
@@ -21,7 +30,7 @@ public/app/themes/default/assets/cache
 !.env.example
 
 # Composer
-vendor
+vendor/
 composer.phar
 
 # Others
