@@ -1,13 +1,29 @@
-.htaccess
-wp-content/uploads/
-wp-content/blogs.dir/
-wp-content/upgrade/
-wp-content/backup-db/
-wp-content/advanced-cache.php
-wp-content/wp-cache-config.php
-sitemap.xml
-*.log
-wp-content/cache/
-wp-content/backups/
-sitemap.xml.gz
-wp-config.php
+# Ignore all of the standard Wordpress Install
+public/wp
+
+# Ignore all of the app, except for white listed entries
+public/app
+!public/app/plugins/.gitkeep
+!public/app/mu-plugins/.gitkeep
+!public/app/uploads/.htaccess
+!public/app/themes/default/*
+
+# Ignore the assetmini files
+public/app/themes/default/assets/min.php
+public/app/themes/default/assets/.htaccess
+public/app/themes/default/assets/cache
+*.hash
+*.min.*
+
+# Ignore Enviroment Variables, except for the example
+.env
+.env.*
+!.env.example
+
+# Composer
+vendor
+composer.phar
+
+# Others
+.DS_Store
+Thumbs.db

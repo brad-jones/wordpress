@@ -1,0 +1,17 @@
+# ==============================================================================
+# If for whatever reason the below rewrite rule does not work, make sure no
+# gains access the following items. Ideally the production web server will be
+# setup to use the ./public dir as the document root.
+# ==============================================================================
+RedirectMatch 403 /\.env
+RedirectMatch 403 /\.kd
+RedirectMatch 403 /\.git
+RedirectMatch 403 wp-config.php
+
+# Rewrite all requests to the public folder - makes for easier development.
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	RewriteBase /
+	RewriteCond %{REQUEST_URI} !^public
+	RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
