@@ -2,9 +2,9 @@
 public/wp/
 
 # Ignore all of the app
-public/app/plugins/
-public/app/mu-plugins/
-public/app/uploads/
+public/app/plugins/*
+public/app/mu-plugins/*
+public/app/uploads/*
 public/app/upgrade/
 public/app/blogs.dir/
 public/app/backup-db/
