@@ -1,48 +1,13 @@
 {
 	"name":"brads/wordpress",
-	"type":"project",
-	"repositories":
-	[
-		{
-			"type": "composer",
-			"url": "http://wpackagist.org"
-		},
-		{
-			"type": "package",
-			"package":
-			{
-				"name": "wordpress/wordpress",
-				"version": "3.9",
-				"type": "webroot",
-				"dist":
-				{
-					"type": "zip",
-					"url": "https://wordpress.org/wordpress-3.9.zip"
-				},
-				"require":
-				{
-					"fancyguy/webroot-installer": "x"
-				}
-			}
-		}
-	],
+	"description": "A composer package that will install the latest wordpress.",
+	"homepage": "https://github.com/brad-jones/wordpress",
+	"keywords": ["wordpress"],
+	"license": "MIT",
+	"type":"brads-wordpress",
 	"require":
 	{
-		"php": ">=5.3.2",
-		"wordpress/wordpress": "x",
-		"vlucas/phpdotenv":"x",
-		"gears/assetmini":"dev-master"
-	},
-	"extra":
-	{
-		"installer-paths":
-		{
-			"public/app/plugins/{$name}/": ["type:wordpress-plugin"],
-			"public/app/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
-			"public/app/themes/{$name}/": ["type:wordpress-theme"]
-		},
-		"webroot-dir": "./public/wp",
-		"webroot-package": "wordpress/wordpress",
-		"assetmini-dir": "./public/app/themes/default/assets"
+		"php": ">=5.2.4",
+		"gears/installer": "x"
 	}
 }
