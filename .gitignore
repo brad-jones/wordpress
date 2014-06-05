@@ -19,6 +19,7 @@
 # Ignore particular wp-content folders
 /wp-content/plugins/*
 /wp-content/uploads/*
+!/wp-content/uploads/.htaccess
 /wp-content/upgrade/
 /wp-content/blogs.dir/
 /wp-content/backup-db/
@@ -26,12 +27,6 @@
 /wp-content/backups/
 /wp-content/advanced-cache.php
 /wp-content/wp-cache-config.php
-
-# Except for white listed entries
-# If you need to version control a custom plugin, or something add it here.
-!public/app/plugins/.gitkeep
-!public/app/mu-plugins/.gitkeep
-!public/app/uploads/.htaccess
 
 # Ignore the assetmini files
 /wp-content/themes/default/assets/min.php
