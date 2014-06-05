@@ -1,13 +1,19 @@
 {
 	"name":"brads/wordpress",
-	"description": "A composer package that will install the latest wordpress.",
+	"type":"project",
+	"description": "A composer project package that will install the latest wordpress and get you started quickly.",
 	"homepage": "https://github.com/brad-jones/wordpress",
 	"keywords": ["wordpress"],
 	"license": "MIT",
-	"type":"brads-wordpress",
+	"repositories": 
+	[{
+		"type": "composer",
+		"url": "http://wpackagist.org"
+	}],
 	"require":
 	{
-		"php": ">=5.2.4",
-		"gears/installer": "dev-master"
+		"php": ">=5.3.2",
+		"gears/wordpress": "*",
+		"gears/assetmini": "*"
 	}
 }
