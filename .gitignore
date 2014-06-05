@@ -1,0 +1,48 @@
+# Ignore all of the standard Wordpress Install
+/wp-admin/
+/wp-includes/
+/index.php
+/wp-activate.php
+/wp-blog-header.php
+/wp-comments-post.php
+/wp-config-sample.php
+/wp-cron.php
+/wp-links-opml.php
+/wp-load.php
+/wp-login.php
+/wp-mail.php
+/wp-settings.php
+/wp-signup.php
+/wp-trackback.php
+/xmlrpc.php
+
+# Ignore particular wp-content folders
+/wp-content/plugins/*
+/wp-content/uploads/*
+/wp-content/upgrade/
+/wp-content/blogs.dir/
+/wp-content/backup-db/
+/wp-content/cache/
+/wp-content/backups/
+/wp-content/advanced-cache.php
+/wp-content/wp-cache-config.php
+
+# Except for white listed entries
+# If you need to version control a custom plugin, or something add it here.
+!public/app/plugins/.gitkeep
+!public/app/mu-plugins/.gitkeep
+!public/app/uploads/.htaccess
+
+# Ignore the assetmini files
+/wp-content/themes/default/assets/min.php
+/wp-content/themes/default/assets/.htaccess
+/wp-content/themes/default/assets/cache/*
+!/wp-content/themes/default/assets/cache/.gitkeep
+
+# Composer
+vendor/
+composer.phar
+
+# Others
+.DS_Store
+Thumbs.db
