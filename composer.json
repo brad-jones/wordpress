@@ -8,6 +8,6 @@
 	"require":
 	{
 		"php": ">=5.2.4",
-		"gears/installer": "x"
+		"gears/installer": "dev-master"
 	}
 }
