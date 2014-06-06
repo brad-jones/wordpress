@@ -18,5 +18,9 @@
 		"wpackagist-plugin/advanced-custom-fields": "*",
 		"wpackagist-plugin/cms-tree-page-view": "*",
 		"wpackagist-plugin/w3-total-cache": "*"
+	},
+	"extra":
+	{
+		"assetmini-dir": "./wp-content/themes/default/assets"
 	}
 }
