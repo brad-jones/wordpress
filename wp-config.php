@@ -169,6 +169,16 @@ define('NONCE_SALT',       'put your unique phrase here');
 // END SALTS
 
 /**
+ * Section: Disable Auto Updates
+ * =============================================================================
+ * As we are now managing the version of wordpress with composer we disable the
+ * automatic updater. If you feel strongly otherwise feel free to re-enable it
+ * by setting the following to false.
+ */
+
+define('AUTOMATIC_UPDATER_DISABLED', true);
+
+/**
  * Section: WordPress debugging mode.
  * =============================================================================
  * Change this to true to enable the display of notices during development.
