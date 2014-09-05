@@ -41,6 +41,7 @@ call_user_func(function()
 		case $env('*dev*'):
 		case $env('*local*'):
 		{
+			define('WP_ENV', 'local');
 			define('DB_NAME', 'wordpress');
 			define('DB_USER', 'root');
 			define('DB_PASSWORD', '');
@@ -51,6 +52,7 @@ call_user_func(function()
 		// Staging
 		case $env('stag*'):
 		{
+			define('WP_ENV', 'staging');
 			define('DB_NAME', 'wordpress');
 			define('DB_USER', 'staging_user');
 			define('DB_PASSWORD', 'staging_password');
@@ -61,6 +63,7 @@ call_user_func(function()
 		// Production
 		default:
 		{
+			define('WP_ENV', 'production');
 			define('DB_NAME', 'wordpress');
 			define('DB_USER', 'production_user');
 			define('DB_PASSWORD', 'production_password');
@@ -87,6 +90,50 @@ define('DB_COLLATE', '');
  */
 
 $table_prefix  = 'wp_';
+
+
+/**
+ * Section: Uploads .htaccess
+ * =============================================================================
+ * When you are working locally or on the staging environment. Or any other
+ * environment that is not production. It is always really annoying when you
+ * are missing media assets from the uploads folder. This fixes that for us.
+ */
+
+// define('ASSETS_URL', 'http://example.com/wp-content/uploads/');
+
+call_user_func(function()
+{
+	if (WP_ENV != 'production' && defined('ASSETS_URL'))
+	{
+		// The htaccess contents
+		$htaccess =
+			'<IfModule mod_rewrite.c>'."\n".
+			"\t".'RewriteEngine On'."\n".
+			"\t".'RewriteBase /wp-content/uploads/'."\n".
+			"\t".'RewriteCond %{REQUEST_FILENAME} !-f'."\n".
+			"\t".'RewriteCond %{REQUEST_FILENAME} !-d'."\n".
+			"\t".'RewriteRule ^(.*) '.ASSETS_URL.'$1 [L,P]'."\n".
+			'</IfModule>'
+		;
+
+		// Does the uploads dir exist?
+		if (!is_dir('./wp-content/uploads'))
+		{
+			// Lets attempt to create it
+			if (!mkdir('./wp-content/uploads'))
+			{
+				// Fail silently, when they login to wordpress they will soon
+				// get a message telling them the uploads dir is not writable.
+				return;
+			}
+		}
+
+		// Attempt to write to the .htaccess file
+		// If we can create it awesome, if not im not too worried.
+		@file_put_contents('./wp-content/uploads/.htaccess', $htaccess);
+	}
+});
 
 /**
  * Section: Authentication Unique Keys and Salts.

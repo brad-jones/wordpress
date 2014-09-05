@@ -14,18 +14,21 @@
 	{
 		"codegyre/robo": "*",
 		"wp-cli/wp-cli": "*",
+		"symfony/finder": "*",
 		"guzzlehttp/guzzle": "4.*",
 		"gears/assetmini": "*",
-		"wpackagist-plugin/advanced-custom-fields": "*"
+		"gears/arrays": "*",
+		"gears/string": "*",
+		"wpackagist-plugin/advanced-custom-fields": "*",
+		"wpackagist-plugin/search-everything": "*",
+		"wpackagist-plugin/regenerate-thumbnails": "*",
+		"wpackagist-plugin/admin-menu-tree-page-view": "*",
+		"wpackagist-plugin/cms-tree-page-view": "*"
 	},
 	"scripts":
 	{
 		"post-install-cmd": "robo wp:install",
 		"post-update-cmd": "robo wp:update",
 		"post-create-project-cmd": "robo wp:salts"
-	},
-	"extra":
-	{
-		"assetmini-dir": "./wp-content/themes/default/assets"
 	}
 }
