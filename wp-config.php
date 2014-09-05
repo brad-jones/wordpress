@@ -4,6 +4,15 @@
 require('vendor/autoload.php');
 
 /**
+ * Section: The base dir for wordpress
+ * =============================================================================
+ * In case you need to use in any of the config below we define it
+ * here instead of all the way at the bottom of the file.
+ */
+
+if (!defined('ABSPATH')) define('ABSPATH', dirname(__FILE__).'/');
+
+/**
  * Section: Environment Specific Configuration
  * =============================================================================
  * Here we define our database connection details and any other environment
@@ -194,5 +203,4 @@ define('WP_DEBUG', false);
  * That's all, stop editing! Happy blogging.
  */
 
-if (!defined('ABSPATH')) define('ABSPATH', dirname(__FILE__).'/');
 require_once(ABSPATH . 'wp-settings.php');
