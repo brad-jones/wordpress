@@ -1,5 +1,9 @@
 <?php
 
+// Set the timezone
+// Sometimes scripts and php can be picky
+date_default_timezone_set ('Australia/Melbourne');
+
 // Include composer here just in case we are called
 // with a globally installed version of robo.
 require_once('vendor/autoload.php');
