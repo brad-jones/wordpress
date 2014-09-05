@@ -1,6 +1,6 @@
 # Ignore all of the standard Wordpress Install
-/wp-admin/
-/wp-includes/
+/wp-admin
+/wp-includes
 /index.php
 /wp-activate.php
 /wp-blog-header.php
@@ -16,24 +16,28 @@
 /wp-trackback.php
 /xmlrpc.php
 
-# Ignore particular wp-content folders
+# Ignore particular wp-content folders and files
+/wp-content/themes/*
 /wp-content/plugins/*
-/wp-content/uploads/*
-!/wp-content/uploads/.htaccess
-/wp-content/upgrade/
-/wp-content/blogs.dir/
-/wp-content/backup-db/
-/wp-content/cache/
-/wp-content/backups/
+/wp-content/mu-plugins/*
+/wp-content/uploads
+/wp-content/upgrade
+/wp-content/cache
+/wp-content/backups
 /wp-content/advanced-cache.php
 /wp-content/wp-cache-config.php
 
+# If you have a plugin, theme, or mu-plugin that you really do want to put into
+# version control, add an exception here. Exceptions will look like this:
+#   !/wp-content/themes/theme-folder
+!/wp-content/themes/default
+
 # Ignore the assetmini files
-/wp-content/themes/default/assets/min.php
-/wp-content/themes/default/assets/.htaccess
+/assets/min.php
+/assets/.htaccess
 
 # Composer
-vendor/
+/vendor
 composer.phar
 
 # Others

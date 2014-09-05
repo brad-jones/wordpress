@@ -15,7 +15,7 @@
 		"codegyre/robo": "*",
 		"wp-cli/wp-cli": "*",
 		"symfony/finder": "*",
-		"guzzlehttp/guzzle": "4.*",
+		"guzzlehttp/guzzle": "*",
 		"gears/assetmini": "*",
 		"gears/arrays": "*",
 		"gears/string": "*",

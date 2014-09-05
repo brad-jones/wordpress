@@ -39,6 +39,11 @@ class RoboFile extends \Robo\Tasks
 
 			// Download the core wordpress files
 			$this->taskExec('vendor/bin/wp core download --version='.$version)->run();
+
+			// Remove a few things we don't need
+			@unlink('license.txt');
+			@unlink('readme.html');
+			@unlink('./wp-content/plugins/hello.php');
 		}
 	}
 

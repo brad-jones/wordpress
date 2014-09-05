@@ -91,7 +91,6 @@ define('DB_COLLATE', '');
 
 $table_prefix  = 'wp_';
 
-
 /**
  * Section: Uploads .htaccess
  * =============================================================================
