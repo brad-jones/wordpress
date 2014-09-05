@@ -17,6 +17,7 @@
 /xmlrpc.php
 
 # Ignore particular wp-content folders and files
+/wp-content/index.php
 /wp-content/themes/*
 /wp-content/plugins/*
 /wp-content/mu-plugins/*
