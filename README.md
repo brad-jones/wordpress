@@ -1,9 +1,9 @@
 Brads Wordpress
 ================================================================================
-**Wordpress + Composer + Robo Task Runner + WP-CLI + awesome stuff**
+**Wordpress + Composer + Robo Task Runner + WP-CLI + AssetMini + awesome stuff**
 
 So this is my take on trying to get wordpress into the composer environment.
-There are many other projects which also do this. I feel like untill Wordpress
+There are many other projects which also do this. I feel like until Wordpress
 actually give us something built-in we are going to continue to see these sorts
 of setups. 
 
@@ -16,15 +16,15 @@ of setups.
 The issue I have found with the other approches, is that they all modify
 wordpress in some way or another. Wordpress gets put inside another directory.
 Then we have to define extra index.php files and so on. The best example of this
-is the Roots Bedrock Stack. It hardley looks anything like the original project.
+is the Roots Bedrock Stack. It hardly looks anything like the original project.
 
 Now for me as a seriously hardcore backend dev *pats back :)* I would love to
 use something like the Roots project with Vagrant and other awesome server side
 tech. Well in actual fact I would just throw out wordpress altogether.
 
-The issue I can foresee though is that my other colegues which perhaps arn't so
-technically inclined (not for a second am I suggesting your dumb, you just have
-other talents which are diffrtent than mine, hell I can't style a bootstrap
+The issue I can foresee though is that my other colleagues which perhaps aren't
+so technically inclined (not for a second am I suggesting your dumb, you just
+have other talents which are different than mine, hell I can't style a bootstrap
 button to save my life) won't have a clue where everything has gone and what
 happened to wordpress??? Composer needs to be easy otherwise others wont use it.
 
@@ -37,16 +37,19 @@ It's easy follow these steps:
   1. Make sure you have composer installed.
      https://getcomposer.org/doc/00-intro.md
 
-  2. Now run the following in your Apache vhosts dir
+  2. Now run the following in your vhosts dir
      or wherever you want the new project to be located.
 
      ```composer create-project brads/wordpress my-new-site```
 
   3. Commit you new project to git.
 
-  4. Go home, clone the project. Then run:
+  4. Go home, clone the project.
+     Then run:
 
      ```composer install```
+
+     Wordpress will magically appear again :)
 
   5. When the next wordpress version comes out simply run:
 
@@ -68,6 +71,9 @@ So after you have created your project you will have the following:
 
   - The Robo Task Runner is also installed into ./vendors/bin/robo
     Checkout: http://robo.li/
+
+  - AssetMini, for auto-magically minifying your css and js.
+    See: https://github.com/phpgearbox/assetmini
 
   - You get a .gitignore file that should ignore all the standard wordpress
     files except for a theme called "default", you can change this.
