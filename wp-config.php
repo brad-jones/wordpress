@@ -1,60 +1,117 @@
 <?php
+
+// Include composer first up, so we have it available at all times
+require('vendor/autoload.php');
+
 /**
- * The base configurations of the WordPress.
- *
- * This file has the following configurations: MySQL settings, Table Prefix,
- * Secret Keys, WordPress Language, and ABSPATH. You can find more information
- * by visiting {@link http://codex.wordpress.org/Editing_wp-config.php Editing
- * wp-config.php} Codex page. You can get the MySQL settings from your web host.
- *
- * This file is used by the wp-config.php creation script during the
- * installation. You don't have to use the web site, you can just copy this file
- * to "wp-config.php" and fill in the values.
- *
- * @package WordPress
+ * Section: Environment Specific Configuration
+ * =============================================================================
+ * Here we define our database connection details and any other environment
+ * specific configuration. We use some simple environment detection so that
+ * we can easily define different values regardless of where we run.
  */
 
-// Environment specific config
-if (file_exists(dirname(__FILE__).'/wp-config.local.php'))
+// Wrap this up in a closure so we don't pollute the global name space.
+// One laughs.., considering what WordPress is about to do but oh well.
+call_user_func(function()
 {
-	// Put local configuration in this file
-	require('wp-config.local.php');
-}
-else
-{
-	if (strpos(gethostname(), 'staging') !== false)
+	// This is where the magic happens
+	$env = function($host)
 	{
-		// Staging Config
-		define('DB_NAME', '');
-		define('DB_USER', '');
-		define('DB_PASSWORD', '');
-		define('DB_HOST', '');
-	}
-	else
-	{
-		// Production Config
-		define('DB_NAME', '');
-		define('DB_USER', '');
-		define('DB_PASSWORD', '');
-		define('DB_HOST', '');
-	}
-}
+		// Do we have a direct match with the hostname of the OS / webserver
+		// NOTE: The HTTP_HOST can be spoofed, remove if super paranoid.
+		if ($host == gethostname() || $host == @$_SERVER['HTTP_HOST'])
+			return true;
 
-/** Database Charset to use in creating database tables. */
+		// This next bit is stolen from Laravel's str_is helper
+		$pattern = '#^'.str_replace('\*', '.*', preg_quote($host, '#')).'\z#';
+		if ((bool) preg_match($pattern, gethostname())) return true;
+		if ((bool) preg_match($pattern, @$_SERVER['HTTP_HOST'])) return true;
+
+		// No match
+		return false;
+	};
+
+	// Here you can define as many `cases` or environments as you like.
+	// Here are the usual 3 for starters.
+	switch(true)
+	{
+		// Local
+		case $env('my-local-pc-hostname'):
+		case $env('*dev*'):
+		case $env('*local*'):
+		{
+			define('DB_NAME', 'wordpress');
+			define('DB_USER', 'root');
+			define('DB_PASSWORD', '');
+			define('DB_HOST', 'localhost');
+			break;
+		}
+
+		// Staging
+		case $env('stag*'):
+		{
+			define('DB_NAME', 'wordpress');
+			define('DB_USER', 'staging_user');
+			define('DB_PASSWORD', 'staging_password');
+			define('DB_HOST', 'staging_mysql_server');
+			break;
+		}
+
+		// Production
+		default:
+		{
+			define('DB_NAME', 'wordpress');
+			define('DB_USER', 'production_user');
+			define('DB_PASSWORD', 'production_password');
+			define('DB_HOST', 'production_mysql_server');
+		}
+	}
+});
+
+/**
+ * Section: Database Charset and Collate
+ * =============================================================================
+ * If this is different across your environments I think you have some issues...
+ * I quote markjaquith "You almost certainly do not want to change these"
+ */
+
 define('DB_CHARSET', 'utf8');
-
-/** The Database Collate type. Don't change this if in doubt. */
 define('DB_COLLATE', '');
 
-/**#@+
- * Authentication Unique Keys and Salts.
- *
- * Change these to different unique phrases!
- * You can generate these using the {@link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service}
- * You can change these at any point in time to invalidate all existing cookies. This will force all users to have to log in again.
- *
- * @since 2.6.0
+/**
+ * Section: WordPress Database Table prefix.
+ * =============================================================================
+ * You can have multiple installations in one database if you give each
+ * a unique prefix. Only numbers, letters, and underscores please!
  */
+
+$table_prefix  = 'wp_';
+
+/**
+ * Section: Authentication Unique Keys and Salts.
+ * =============================================================================
+ * If you see: **put your unique phrase here**
+ * Change these to different unique phrases!
+ * 
+ * They should get automatically created for you when you
+ * create a new project using:
+ * 
+ *     composer create-project brads/wordpress my-site
+ * 
+ * If not you can run the command:
+ * 
+ *     ./vendor/bin/robo wp:salts
+ * 
+ * Or alternatively do it yourself by going to:
+ * 
+ *     https://api.wordpress.org/secret-key/1.1/salt/
+ * 
+ * You can change these at any point in time to invalidate all existing cookies.
+ * This will force all users to have to log in again.
+ */
+
+// START SALTS
 define('AUTH_KEY',         'put your unique phrase here');
 define('SECURE_AUTH_KEY',  'put your unique phrase here');
 define('LOGGED_IN_KEY',    'put your unique phrase here');
@@ -63,41 +120,23 @@ define('AUTH_SALT',        'put your unique phrase here');
 define('SECURE_AUTH_SALT', 'put your unique phrase here');
 define('LOGGED_IN_SALT',   'put your unique phrase here');
 define('NONCE_SALT',       'put your unique phrase here');
-
-/**#@-*/
-
-/**
- * WordPress Database Table prefix.
- *
- * You can have multiple installations in one database if you give each a unique
- * prefix. Only numbers, letters, and underscores please!
- */
-$table_prefix  = 'wp_';
+// END SALTS
 
 /**
- * WordPress Localized Language, defaults to English.
- *
- * Change this to localize WordPress. A corresponding MO file for the chosen
- * language must be installed to wp-content/languages. For example, install
- * de_DE.mo to wp-content/languages and set WPLANG to 'de_DE' to enable German
- * language support.
- */
-define('WPLANG', '');
-
-/**
- * For developers: WordPress debugging mode.
- *
+ * Section: WordPress debugging mode.
+ * =============================================================================
  * Change this to true to enable the display of notices during development.
  * It is strongly recommended that plugin and theme developers use WP_DEBUG
  * in their development environments.
  */
-// define('WP_DEBUG', false); Please define this in your local config
 
-/* That's all, stop editing! Happy blogging. */
+define('WP_DEBUG', false);
 
-/** Absolute path to the WordPress directory. */
-if ( !defined('ABSPATH') )
-	define('ABSPATH', dirname(__FILE__) . '/');
+/**
+ * Section: Bootstrap WordPress
+ * =============================================================================
+ * That's all, stop editing! Happy blogging.
+ */
 
-/** Sets up WordPress vars and included files. */
+if (!defined('ABSPATH')) define('ABSPATH', dirname(__FILE__).'/');
 require_once(ABSPATH . 'wp-settings.php');

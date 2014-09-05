@@ -31,8 +31,6 @@
 # Ignore the assetmini files
 /wp-content/themes/default/assets/min.php
 /wp-content/themes/default/assets/.htaccess
-/wp-content/themes/default/assets/cache/*
-!/wp-content/themes/default/assets/cache/.gitkeep
 
 # Composer
 vendor/
