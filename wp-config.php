@@ -126,10 +126,10 @@ call_user_func(function()
 		;
 
 		// Does the uploads dir exist?
-		if (!is_dir('./wp-content/uploads'))
+		if (!is_dir(ABSPATH.'/wp-content/uploads'))
 		{
 			// Lets attempt to create it
-			if (!mkdir('./wp-content/uploads'))
+			if (!mkdir(ABSPATH.'/wp-content/uploads'))
 			{
 				// Fail silently, when they login to wordpress they will soon
 				// get a message telling them the uploads dir is not writable.
@@ -139,7 +139,13 @@ call_user_func(function()
 
 		// Attempt to write to the .htaccess file
 		// If we can create it awesome, if not im not too worried.
-		@file_put_contents('./wp-content/uploads/.htaccess', $htaccess);
+		@file_put_contents(ABSPATH.'/wp-content/uploads/.htaccess', $htaccess);
+	}
+	elseif (file_exists(ABSPATH.'/wp-content/uploads/.htaccess'))
+	{
+		// We should remove the file if it has been
+		// uploaded by acident to production for example.
+		@unlink(ABSPATH.'/wp-content/uploads/.htaccess');
 	}
 });
 
