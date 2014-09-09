@@ -13,23 +13,6 @@ of setups.
   - https://github.com/fancyguy/webroot-installer
   - https://github.com/johnpbloch/wordpress-project
 
-The issue I have found with the other approaches, is that they all modify
-wordpress in some way or another. Wordpress gets put inside another directory.
-Then we have to define extra index.php files and so on. The best example of this
-is the Roots Bedrock Stack. It hardly looks anything like the original project.
-
-Now for me as a seriously hardcore backend dev *pats back :)* I would love to
-use something like the Roots project with Vagrant and other awesome server side
-tech. Well in actual fact I would just throw out wordpress altogether.
-
-The issue I can foresee though is that my other colleagues which perhaps aren't
-so technically inclined (not for a second am I suggesting your dumb, you just
-have other talents which are different than mine, hell I can't style a bootstrap
-theme to save my life) won't have a clue where everything has gone and what
-happened to wordpress??? Composer needs to be easy otherwise others wont use it.
-
-Hence I built this project.
-
 How do I use this:
 --------------------------------------------------------------------------------
 It's easy just run:
@@ -66,6 +49,25 @@ So after you have created your project you will have the following:
   - Finally we include a slightly modified version of the .htaccess file from
     http://html5boilerplate.com/ Its got the wordpress rewrite rules at the
     bottom.
+
+Why did I create this?
+--------------------------------------------------------------------------------
+The issue I have found with the other approaches, is that they all modify
+wordpress in some way or another. Wordpress gets put inside another directory.
+Then we have to define extra index.php files and so on. The best example of this
+is the Roots Bedrock Stack. It hardly looks anything like the original project.
+
+Now for me as a seriously hardcore backend dev *pats back :)* I would love to
+use something like the Roots project with Vagrant and other awesome server side
+tech. Well in actual fact I would just throw out wordpress altogether.
+
+The issue I can foresee though is that my other colleagues which perhaps aren't
+so technically inclined (not for a second am I suggesting your dumb, you just
+have other talents which are different than mine, hell I can't style a bootstrap
+theme to save my life) won't have a clue where everything has gone and what
+happened to wordpress??? Composer needs to be easy otherwise others wont use it.
+
+Hence I built this project.
 
 Making Contributions
 --------------------------------------------------------------------------------
