@@ -43,6 +43,7 @@ class RoboFile extends \Robo\Tasks
 			// Remove a few things we don't need
 			@unlink('license.txt');
 			@unlink('readme.html');
+			@unlink('wp-config-sample.php');
 			@unlink('./wp-content/plugins/hello.php');
 		}
 	}
