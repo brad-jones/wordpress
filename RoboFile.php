@@ -118,7 +118,7 @@ class RoboFile extends \Robo\Tasks
 	 * =========================================================================
 	 * This task will create a new set of salts and write them to the
 	 * .salts.php file for you. Again this tied into composer as a
-	 * post-create-project-cmd so you really shouldn't need to worry about it.
+	 * post-install-cmd so you really shouldn't need to worry about it.
 	 * 
 	 * But if you do want to call it, usage would look like:
 	 * 
@@ -146,8 +146,7 @@ class RoboFile extends \Robo\Tasks
 	 * =========================================================================
 	 * This task simply loops through some folders and ensures they exist and
 	 * have the correct permissions. It is automatically run by composer as a
-	 * post-install-cmd / post-update-cmd so you really shouldn't need to
-	 * worry about it.
+	 * post-install-cmd so you really shouldn't need to worry about it.
 	 * 
 	 * But if you do want to call it, usage would look like:
 	 * 
