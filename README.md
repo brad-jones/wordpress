@@ -13,7 +13,7 @@ of setups.
   - https://github.com/fancyguy/webroot-installer
   - https://github.com/johnpbloch/wordpress-project
 
-The issue I have found with the other approches, is that they all modify
+The issue I have found with the other approaches, is that they all modify
 wordpress in some way or another. Wordpress gets put inside another directory.
 Then we have to define extra index.php files and so on. The best example of this
 is the Roots Bedrock Stack. It hardly looks anything like the original project.
@@ -25,37 +25,20 @@ tech. Well in actual fact I would just throw out wordpress altogether.
 The issue I can foresee though is that my other colleagues which perhaps aren't
 so technically inclined (not for a second am I suggesting your dumb, you just
 have other talents which are different than mine, hell I can't style a bootstrap
-button to save my life) won't have a clue where everything has gone and what
+theme to save my life) won't have a clue where everything has gone and what
 happened to wordpress??? Composer needs to be easy otherwise others wont use it.
 
 Hence I built this project.
 
 How do I use this:
 --------------------------------------------------------------------------------
-It's easy follow these steps:
+It's easy just run:
 
-  1. Make sure you have composer installed.
-     https://getcomposer.org/doc/00-intro.md
+```
+composer create-project brads/wordpress my-new-site
+```
 
-  2. Now run the following in your vhosts dir
-     or wherever you want the new project to be located.
-
-     ```composer create-project brads/wordpress my-new-site```
-
-  3. Commit you new project to git.
-
-  4. Go home, clone the project.
-     Then run:
-
-     ```composer install```
-
-     Wordpress will magically appear again :)
-
-  5. When the next wordpress version comes out simply run:
-
-     ```composer update```
-
-*Please be patient composer can be a bit slow sometimes, one of it's downsides.*
+*You now have a wordpress project managed with composer.*
 
 What do I get:
 --------------------------------------------------------------------------------

@@ -20,6 +20,20 @@ if (!defined('ABSPATH')) define('ABSPATH', dirname(__FILE__).'/');
  * we can easily define different values regardless of where we run.
  */
 
+// Do we have a local .env.php file
+if (file_exists('.env.php'))
+{
+	foreach (require('.env.php') as $key => $value)
+	{
+		if (getenv($key) === false)
+		{
+			putenv("$key=$value");
+			$_ENV[$key] = $value;
+			$_SERVER[$key] = $value;
+		}
+	}
+}
+
 // Wrap this up in a closure so we don't pollute the global name space.
 // One laughs.., considering what WordPress is about to do but oh well.
 call_user_func(function()
@@ -62,10 +76,10 @@ call_user_func(function()
 		case $env('stag*'):
 		{
 			define('WP_ENV', 'staging');
-			define('DB_NAME', 'wordpress');
-			define('DB_USER', 'staging_user');
-			define('DB_PASSWORD', 'staging_password');
-			define('DB_HOST', 'staging_mysql_server');
+			define('DB_NAME', $_ENV['DB_NAME']);
+			define('DB_USER', $_ENV['DB_USER']);
+			define('DB_PASSWORD', $_ENV['DB_PASSWORD']);
+			define('DB_HOST', $_ENV['DB_HOST']);
 			break;
 		}
 
@@ -73,10 +87,10 @@ call_user_func(function()
 		default:
 		{
 			define('WP_ENV', 'production');
-			define('DB_NAME', 'wordpress');
-			define('DB_USER', 'production_user');
-			define('DB_PASSWORD', 'production_password');
-			define('DB_HOST', 'production_mysql_server');
+			define('DB_NAME', $_ENV['DB_NAME']);
+			define('DB_USER', $_ENV['DB_USER']);
+			define('DB_PASSWORD', $_ENV['DB_PASSWORD']);
+			define('DB_HOST', $_ENV['DB_HOST']);
 		}
 	}
 });
@@ -89,7 +103,7 @@ call_user_func(function()
  */
 
 define('DB_CHARSET', 'utf8');
-define('DB_COLLATE', '');
+define('DB_COLLATE', 'utf8_unicode_ci');
 
 /**
  * Section: WordPress Database Table prefix.
@@ -114,6 +128,9 @@ call_user_func(function()
 {
 	if (WP_ENV != 'production' && defined('ASSETS_URL'))
 	{
+		// The uploads path
+		$uploads_path = ABSPATH.'/wp-content/uploads';
+
 		// The htaccess contents
 		$htaccess =
 			'<IfModule mod_rewrite.c>'."\n".
@@ -126,10 +143,10 @@ call_user_func(function()
 		;
 
 		// Does the uploads dir exist?
-		if (!is_dir(ABSPATH.'/wp-content/uploads'))
+		if (!is_dir($uploads_path))
 		{
 			// Lets attempt to create it
-			if (!mkdir(ABSPATH.'/wp-content/uploads'))
+			if (!@mkdir($uploads_path))
 			{
 				// Fail silently, when they login to wordpress they will soon
 				// get a message telling them the uploads dir is not writable.
@@ -139,24 +156,24 @@ call_user_func(function()
 
 		// Attempt to write to the .htaccess file
 		// If we can create it awesome, if not im not too worried.
-		@file_put_contents(ABSPATH.'/wp-content/uploads/.htaccess', $htaccess);
+		@file_put_contents($uploads_path.'/.htaccess', $htaccess);
 	}
-	elseif (file_exists(ABSPATH.'/wp-content/uploads/.htaccess'))
+	elseif (file_exists($uploads_path.'/.htaccess'))
 	{
 		// We should remove the file if it has been
 		// uploaded by acident to production for example.
-		@unlink(ABSPATH.'/wp-content/uploads/.htaccess');
+		@unlink($uploads_path.'/.htaccess');
 	}
 });
 
 /**
  * Section: Authentication Unique Keys and Salts.
  * =============================================================================
- * If you see: **put your unique phrase here**
- * Change these to different unique phrases!
+ * Salts should never be committed to git, and because we commit this file
+ * we need to refrence a non tracked file that contains the salts.
  * 
- * They should get automatically created for you when you
- * create a new project using:
+ * The file '.salts.php' should get automatically created for
+ * you when you create a new project using:
  * 
  *     composer create-project brads/wordpress my-site
  * 
@@ -167,21 +184,9 @@ call_user_func(function()
  * Or alternatively do it yourself by going to:
  * 
  *     https://api.wordpress.org/secret-key/1.1/salt/
- * 
- * You can change these at any point in time to invalidate all existing cookies.
- * This will force all users to have to log in again.
  */
 
-// START SALTS
-define('AUTH_KEY',         'put your unique phrase here');
-define('SECURE_AUTH_KEY',  'put your unique phrase here');
-define('LOGGED_IN_KEY',    'put your unique phrase here');
-define('NONCE_KEY',        'put your unique phrase here');
-define('AUTH_SALT',        'put your unique phrase here');
-define('SECURE_AUTH_SALT', 'put your unique phrase here');
-define('LOGGED_IN_SALT',   'put your unique phrase here');
-define('NONCE_SALT',       'put your unique phrase here');
-// END SALTS
+require('.salts.php');
 
 /**
  * Section: Disable Auto Updates

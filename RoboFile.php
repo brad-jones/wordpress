@@ -116,7 +116,7 @@ class RoboFile extends \Robo\Tasks
 	 * Method: wpSalts
 	 * =========================================================================
 	 * This task will create a new set of salts and write them to the
-	 * wp-config.php file for you. Again this tied into composer as a
+	 * .salts.php file for you. Again this tied into composer as a
 	 * post-create-project-cmd so you really shouldn't need to worry about it.
 	 * 
 	 * But if you do want to call it, usage would look like:
@@ -133,12 +133,57 @@ class RoboFile extends \Robo\Tasks
 	 */
 	public function wpSalts()
 	{
-		// Search and replace
-		$this->taskReplaceInFile('wp-config.php')
-			->regex('#'.preg_quote('// START SALTS', '#').'.*?'.preg_quote('// END SALTS', '#').'#s')
-			->to("// START SALTS\n".GuzzleHttp\get('https://api.wordpress.org/secret-key/1.1/salt/')->getBody()."// END SALTS")
-			->run()
-		;
+		// Grab the salts from the wordpress server
+		$salts = GuzzleHttp\get('https://api.wordpress.org/secret-key/1.1/salt/')->getBody();
+
+		// Create the new .salts.php file
+		$this->taskWriteToFile('.salts.php')->line('<?php')->text($salts)->run();
+	}
+
+	/**
+	 * Method: permissionsSet
+	 * =========================================================================
+	 * This task simply loops through some folders and ensures they exist and
+	 * have the correct permissions. It is automatically run by composer as a
+	 * post-install-cmd / post-update-cmd so you really shouldn't need to
+	 * worry about it.
+	 * 
+	 * But if you do want to call it, usage would look like:
+	 * 
+	 *     php vendor/bin/robo permissions:set
+	 * 
+	 * Parameters:
+	 * -------------------------------------------------------------------------
+	 * n/a
+	 * 
+	 * Returns:
+	 * -------------------------------------------------------------------------
+	 * void
+	 */
+	public function permissionsSet()
+	{
+		// These folders will be give full write permissions
+		$folders =
+		[
+			// Wordpress likes to have write access to the entire wp-content
+			// folder. I don't like this. And will only provide access to
+			// the uploads folder.
+			'./wp-content/uploads',
+
+			// This is for AssetMini
+			'./assets/cache'
+
+			// Feel free to add your own folder here...
+		];
+
+		// Loop through each folder
+		foreach ($folders as $folder)
+		{
+			$this->taskFileSystemStack()
+				->mkdir($folder)
+				->chmod($folder, 0777)
+			->run();
+		}
 	}
 
 	/**

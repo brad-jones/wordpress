@@ -27,8 +27,8 @@
 	},
 	"scripts":
 	{
-		"post-install-cmd": "robo wp:install",
-		"post-update-cmd": "robo wp:update",
+		"post-install-cmd": ["robo wp:install", "robo permissions:set"],
+		"post-update-cmd": ["robo wp:update", "robo permissions:set"],
 		"post-create-project-cmd": "robo wp:salts"
 	}
 }

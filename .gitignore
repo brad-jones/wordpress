@@ -37,6 +37,10 @@
 /assets/min.php
 /assets/.htaccess
 
+# Ignore files with sensitive info
+.env.php
+.salts.php
+
 # Composer
 /vendor
 composer.phar
